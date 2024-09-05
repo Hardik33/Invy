@@ -1,0 +1,295 @@
+<!Doctype HTML>
+	<html>
+	<head>
+		<title></title>
+		<link rel="stylesheet" type="text/html" href="form.css">
+  <link rel="stylesheet" type="text/html" href="table.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="staff.css" type="text/css"/>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500&family=Ubuntu+Mono&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap"
+      rel="stylesheet"
+    />
+	<script src="search.js" ></script>
+	
+
+
+	<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+
+	<!-- TODO: Add SDKs for Firebase products that you want to use
+		https://firebase.google.com/docs/web/setup#available-libraries -->
+	<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+
+	<script type = "text/javascript" >  
+		function preventBack() { window.history.forward(); }  
+		setTimeout("preventBack()", 0);  
+		window.onunload = function () { null };  
+	</script>
+
+	</head>
+
+
+	<body>
+		
+		<div id="mySidenav" class="sidenav">
+		<p class="logo"><span>I</span>-nvy</p>
+        <a href="../dashboard/dashboard.html" class="icon-a"><i class="fa fa-dashboard icons"></i>  Dashboard</a>
+		<a href="../profile/profie.html" class="icon-a"><i class="fa fa-user-circle icons"></i>  Profile</a>
+		<a href="../inventory/inventory.html"class="icon-a"><i class="fa fa-tasks icons"></i>   Inventory</a>
+		<a href="../staff/staff.html"class="icon-a"><i class="fa fa-user-plus icons"></i>   Staff Management</a>
+		<a href="../billing/billing.html"class="icon-a"><i class="fa fa-calendar icons"></i>   Billing Management</a>
+		<!-- <a href="../chart/chart.html"class="icon-a"><i class="fa fa-line-chart icons"></i>   Charts</a> -->
+		<a href="http://127.0.0.1:5501/authentication/login.html"class="icon-a"><i class="fa fa-sign-out icons"></i>   Logout</a>
+
+	</div>
+	<div id="main">
+
+		<div class="head">
+
+			<div class="col-div-6">
+	<span style="font-size:30px;cursor:pointer; color: #3b3b44;" class="nav"  >☰  Staff Management</span>
+	<span style="font-size:30px;cursor:pointer; color: #3b3b44;" class="nav2"  >☰  Staff Management</span>
+	<div id="maincontent">
+    
+    <h1 style="margin-left: 10px;"></h1>
+			<!-- Search Bar -->
+				<div class="box">
+					<input type="text" id="srch" placeholder="Search.." onkeyup="tableSearch()">
+					<script type="text/javascript" src="search.js"></script>
+ 					<button type="submit" class="srchbtn"><i class="fa fa-search"></i>
+					</button>
+
+    <button id="button">Insert Data</button>
+</div>
+<div id="overlay"></div>
+<div id="popup">
+    <div class="popupcontrols">
+        <span id="popupclose">&times;</span>
+    </div>
+    <div class="popupcontent">
+    	    <form onsubmit="event.preventDefault(); onFormSubmit(); UpdateProfile();" autocomplete="off">
+                    <div>
+                        <label>Staff ID</label><label class="validation-error hide" id="fullNameValidationError"></label><br>
+                        <input type="text" name="sid" id="sid" required="">
+                    </div>
+                    <div>
+                        <label>Staff Name</label><br>
+                        <input type="text" name="sname" id="sname" required="">
+                    </div>
+                    <div>
+                        <label>Staff Attandence</label><br>
+                        <input type="datetime-local" name="sattnd" id="sattnd" required="">
+                    </div>
+                    <div  class="form-action-buttons"><br>
+                        <input type="submit" value="Submit" id="add">
+                    </div>
+                </form>
+
+
+    </div>
+</div>
+<table class="list" id="employeeList">
+                    <thead>
+                        <tr>
+                            <th style="width: 15%;">Staff ID</th>
+                            <th style="width: 50%;">Staff Name</th>
+                            <th style="width: 20%;">Staff Attendance</th>
+                            <th style="width: 15%;"><span id="set">&#9881;</span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    </table>
+    <script src="tryjs.js"></script>
+
+	<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+         https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+
+	<script type="module">
+		// import { initializeApp } from "firebase/app";
+		// import { getFirestore } from "firebase/firestore";
+	
+	
+		import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-app.js";
+		import { getAuth } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-auth.js";
+	
+		import { getFirestore, doc,addDoc, setDoc,getDoc, getDocs, collection } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-firestore.js";
+	
+		var firebaseConfig = {
+		apiKey: "AIzaSyD2Dd_AI2u4TaWbNrgvpwTRxuVLRKfmR5Q",
+		authDomain: "invy-64212.firebaseapp.com",
+		databaseURL: "https://invy-64212-default-rtdb.firebaseio.com",
+		projectId: "invy-64212",
+		storageBucket: "invy-64212.appspot.com",
+		messagingSenderId: "323251925750",
+		appId: "1:323251925750:web:3eb3b245948e58d41372d7"
+		};
+	
+		 // Initialize Firebase
+		// firebase.initializeApp(firebaseConfig);
+		const app = initializeApp(firebaseConfig);
+		// const auth = getAuth(app);
+		// const firebase = firebase.initializeApp(firebaseConfig);
+		const db = getFirestore(app);
+	
+		// const userid = await auth.currentUser;
+		// console.log(userid);
+	
+		const GetUpdate = async() => {
+			try {
+				const userid = localStorage.getItem("current-user-id");
+				const documentDocRef = doc(db,"staff",userid);
+	
+				const docSnap = await getDoc(documentDocRef);
+	
+				if (docSnap.exists()) {
+				
+				const profileData = docSnap.data();
+				console.log("Document data:", profileData);
+	
+				
+				document.getElementById("sid").value = profileData.sid;
+				document.getElementById("sname").value = profileData.sname;
+				document.getElementById("sattnd").value = profileData.sattnd;
+	
+				console.log("Successfully Updated Form from Database");
+	
+				} else {
+				// doc.data() will be undefined in this case
+				console.log("No such document!");
+				}
+	
+			} catch (error) {
+				console.log("Errir getting Document: ",error);
+			}
+		}
+	
+		//THIS WILL AUTOMATICALLY GRAB DOCUMENT IF EXISTS
+		GetUpdate();
+	
+		
+		
+		const UpdateProfile = async() => { 
+			// console.log("ye wala function call hoja plssss")
+			try {
+				const userid = localStorage.getItem("current-user-id");
+				const documentDocRef = doc(db,"staff",userid);
+	
+				const docRef = await setDoc(documentDocRef,{
+					sid : document.getElementById("sid").value,
+					sname : document.getElementById("sname").value,
+					sattnd : document.getElementById("sattnd").value,
+				},{merge: true});
+	
+				// const docRef = await addDoc(collection(db,`users/${userid}/profileData`),{
+				// const docRef = await addDoc(collection(db,"profile",userid),{
+				//     firstname: document.getElementById("firstname").value,
+				//     username : document.getElementById("username").value,
+				//     shopname : document.getElementById("shopname").value,
+				//     emailid : document.getElementById("emailid").value,
+				//     mobileno: document.getElementById("mobileno").value,
+				//     address: document.getElementById("address").value,
+				// },{merge: true});
+				console.log("Document written ", docRef);
+			} catch (error) {
+				console.error("Error adding document: ", error);
+			}
+		}
+	
+		window.UpdateProfile = UpdateProfile;
+	
+		//GANPATII BAAPA MORIYAA
+	
+		// try {
+		//     const docRef = await addDoc(collection(db, "users/index/loda"), {
+		//         first: "hardik ",
+		//         last: "smart",
+		//         born: 2004
+		//     });
+		//     console.log("Document written with ID: ", docRef.id);
+		// } catch (e) {
+		//     console.error("Error adding document: ", e);
+		// }
+	
+		// db.collection("profile").add({
+		// first: "Ada",
+		// last: "Lovelace",
+		// born: 1815
+		// })
+		// .then((docRef) => {
+		//     console.log("Document written with ID: ", docRef.id);
+		// })
+		// .catch((error) => {
+		//     console.error("Error adding document: ", error);
+		// });
+	</script>
+	
+
+<script type="text/javascript">
+	// Initialize Variables
+	var closePopup = document.getElementById("popupclose");
+	var overlay = document.getElementById("overlay");
+	var popup = document.getElementById("popup");
+	var button = document.getElementById("button");
+	// Close Popup Event
+	closePopup.onclick = function() {
+	  overlay.style.display = 'none';
+	  popup.style.display = 'none';
+	};
+	// Show Overlay and Popup
+	button.onclick = function() {
+	  overlay.style.display = 'block';
+	  popup.style.display = 'block';
+	}
+</script>
+	</div>
+		
+
+
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script>
+
+	  $(".nav").click(function(){
+	    $("#mySidenav").css('width','70px');
+	    $("#main").css('margin-left','70px');
+	    $(".logo").css('visibility', 'hidden');
+	    $(".logo span").css('visibility', 'visible');
+	     $(".logo span").css('margin-left', '-10px');
+	     $(".icon-a").css('visibility', 'hidden');
+	     $(".icons").css('visibility', 'visible');
+	     $(".icons").css('margin-left', '-8px');
+	      $(".nav").css('display','none');
+	      $(".nav2").css('display','block');
+	  });
+
+	$(".nav2").click(function(){
+	    $("#mySidenav").css('width','300px');
+	    $("#main").css('margin-left','300px');
+	    $(".logo").css('visibility', 'visible');
+	     $(".icon-a").css('visibility', 'visible');
+	     $(".icons").css('visibility', 'visible');
+	     $(".nav").css('display','block');
+	      $(".nav2").css('display','none');
+	 });
+
+	</script>
+
+
+	</body>
+
+
+	</html>

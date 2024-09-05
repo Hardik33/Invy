@@ -1,0 +1,77 @@
+
+body{
+	overflow-y: scroll;
+    
+}
+.maincontent{
+	margin-left:50px;
+}
+
+
+
+.side
+{
+	margin-left:30%;
+	
+}
+
+
+
+.label2
+{
+	font-family: "Ubuntu", sans-serif;
+	color:rgb(0, 0, 0);
+	font-size: 19px;
+	
+}
+
+
+#form
+{
+    width: 80%;
+    margin-top: 70px;
+	margin-left:50px;
+}
+
+
+
+input[type=text], input[type=number],input[type=file] {
+    width: 80%;
+    padding: 15px 20px;
+    margin: 8px 0;
+	font-size:20px;
+    display: inline-block;
+    border: 2px solid blue;
+    box-sizing: border-box;
+    background-color:rgb(207, 243, 225);
+}
+
+
+
+input[type=submit]{
+    width: 40%;
+    background-color: #1c87c9;
+    color: white;
+	font-size:20px;
+    padding: 14px 20px;
+    margin-left: 20%;
+    cursor: pointer;
+}
+
+form div.form-action-buttons
+{
+    text-align: left;
+}
+
+
+
+
+label.validation-error{
+    color:   rgb(204, 142, 142);
+    margin-left: 5px;
+}
+
+.hide{
+    display:none;
+}
+

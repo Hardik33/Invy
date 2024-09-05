@@ -1,0 +1,70 @@
+body{
+  height: 100%;
+	margin:0px;
+	padding: 0px;
+	background-color:#ffffff;
+	overflow: hidden;
+	font-family: system-ui;
+  overflow-y: scroll;
+}
+.clearfix{
+	clear: both;
+}
+.logo{
+	margin-top: 10px;
+	margin-left: 35px;
+    font-weight: bold;
+    font-size: 50px;
+    font-family: "Ubuntu Mono", monospace;
+    color: #ffffff;
+    margin-bottom: 30px;
+}
+.logo span{
+	color: #f7403b;
+    margin-right: 5px;
+}
+
+.sidenav {
+  height: 120%;
+  width: 280px;
+  position: fixed;
+  padding-left: 0px;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #3b3b44;
+  overflow: hidden;
+  transition: 0.5s;
+  padding-top: 30px;
+}
+.sidenav a {
+  padding: 15px 8px 15px 32px;
+  text-decoration: none;
+  font-size: 20px;
+  color: #ffffff;
+  display: block;
+  transition: 0.3s;
+}
+.sidenav a:hover {
+  color: #cf3939;
+  background-color:#3636a1;
+}
+.sidenav{
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+}
+#main {
+  transition: margin-left .5s;
+  padding: 16px;
+  margin-left: 300px;
+}
+.head{
+	padding:20px;
+}
+
+.nav2{
+	display: none;
+}
+

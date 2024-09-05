@@ -1,0 +1,272 @@
+
+.content {
+    max-width: 500px;
+    margin: auto;
+  }
+.section{
+	width: 100%;
+	min-height: 20vh;
+
+}
+.logo img{
+    height: 80px;
+    width: 200px;
+    margin-top: 30px;
+    margin-left: 50px;
+}
+.bg img{
+    margin-top: 0px;
+    margin-left: 400px;
+}
+
+
+.nav-links {
+    flex: 1;
+    text-align: right;
+    padding-right: 25px;
+}
+
+.nav-links ul li {
+    list-style-type: none;
+    display: inline-block;
+    padding-top: 57px;
+    padding-right: 25px;
+    position: relative;
+}
+
+.nav-links ul li a {
+    color: #000066;
+    font-family: 'Ubuntu Mono', monospace;
+    text-decoration: none;
+    font-size: 22px;
+}
+
+.nav-links ul li::after {
+    content: '';
+    width: 0%;
+    height: 3px;
+    background-color: #f44336;
+    display: block;
+    margin: auto;
+    transition: 0.5s;
+    margin-top: 10px;
+}
+
+.nav-links ul li:hover::after {
+    margin-top: 10px;
+    width: 100%;
+}
+
+
+/* html, body {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+} */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    border: none;
+    outline: none;
+    
+}
+#content_container {
+    margin-left: 35%;
+    margin-bottom: 40px;
+    width: 400px;
+    height: 550px;
+    /* justify-content: center; */
+    align-items: center;
+}
+
+#form_container {
+    width: 100%;
+    height: 100%;
+
+    background: linear-gradient(#fdfcfb,#bdcee6);
+    /* box-shadow: 0 0 50px -20px #000; */
+    border-radius: 20px;
+    border: #000 2px solid;
+
+    overflow: hidden;
+}
+
+/* #form_header_container {
+    width: 100%;
+    height: 5%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    float: left;
+
+    padding: 20px;
+    padding-bottom: 30px;
+    padding-top: 30px;
+
+    border-bottom: 1px solid transparent;
+    background: rgb(255, 253, 253);
+} */
+
+#form_header {
+    margin-top: 30px;
+    margin-left: 35%;
+    display: inline-block;
+    font-size: 34px;
+    font-family: "Ubuntu Mono", monospace;
+    font-weight: bold;
+    letter-spacing: 1px;
+    color: #000066;
+   
+}
+
+#form_content_container {
+    width: 100%;
+    height: 90%;
+
+    float: left;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding-top: 30px;
+}
+
+#form_content_inner_container {
+    width: 75%;
+    height: 100%;
+
+    float: left;
+
+}
+
+input {
+    width: 100%;
+    height: 40px;
+
+    padding-left: 20px;
+    margin-bottom: 30px;
+
+    background: rgb(255, 255, 255);
+    font-family: Montserrat;
+    font-weight: 500;
+    color: rgb(0, 0, 0);
+    font-size: 16px;
+
+    border: #000 1px solid;
+    border-radius: 10px;
+
+    /* border-bottom: 2px solid transparent;
+    border-top-left-radius: 2%;
+    border-top-right-radius: 2%;
+    border-image: -webkit-linear-gradient(25deg, #FFBE0B, #FB5607, #FF006E, #8338EC, #3A86FF) 1; */
+}
+#togglePassword1{
+    margin-left: -30px;
+    margin-top: 12px;
+    position: absolute;
+    cursor: pointer;
+    color: rgb(117, 116, 116);
+  }
+
+#button_container {
+    width: 60%;
+    height: 10%;
+
+    background-color: #b2244b;
+    border-radius: 12px;
+    color: #fff;
+
+    margin-top: 5px;
+    margin-left: 20%;
+}
+
+#button_container button {
+    width: 100%;
+    height: 100%;
+
+
+    background: transparent;
+    color: inherit;
+
+    font-family: "Ubuntu Mono", monospace;
+    letter-spacing: 1px;
+    font-weight: 900;
+    font-size: 22px;
+
+    cursor: pointer;
+}
+.or {
+    position: static;
+    margin-top: 30px;
+    text-align: center;
+  }
+  .or p {
+    font-size: 28px;
+    font-family: "Ubuntu Mono", monospace;
+  }
+  .icon {
+    margin-top: 10px;
+    /* margin-left: 30px; */
+    /* position: relative; */
+    /* display: flex; */
+    /* align-content: center; */
+    text-align: center;
+    
+  }
+  a {
+    height: 50px;
+    width: 50px;
+    margin: 5px;
+    line-height: 0px;
+    cursor: pointer;
+  } 
+  a:hover img {
+    transition: 0.5s;
+    transform: scale(1.03);
+  }
+  .line{
+    text-align: center; 
+  }
+  .draw-hr hr {
+    width: 30%;
+    margin-top: -100px;
+    position: static;
+    margin-left: 10%;
+    border: 1px solid #b2244b;
+    
+  }
+  .draw-hr1 hr {
+    width: 30%;
+    margin-top: -2px;
+    position: static;
+    margin-left: 60%;
+    border: 1px solid #b2244b;
+    
+  }
+  .forgot{
+      margin-top: 20px;
+  }
+  .forgot a{
+    color: #000066;
+  }
+  .forgot a:hover{
+    color: #ff0000;
+}
+.create{
+    margin-top: 80px;
+}
+.create a{
+  color: #000066;
+  font-size: 18px;
+}
+.create a:hover{
+  color: #ff0000;
+}
+
+
+

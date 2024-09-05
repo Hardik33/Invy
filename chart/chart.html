@@ -1,0 +1,79 @@
+<!Doctype HTML>
+	<html>
+	<head>
+		<title></title>
+		<link rel="stylesheet" href="chart.css" type="text/css"/>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500&family=Ubuntu+Mono&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap"
+      rel="stylesheet"
+    />
+
+    <script type = "text/javascript" >  
+        function preventBack() { window.history.forward(); }  
+        setTimeout("preventBack()", 0);  
+        window.onunload = function () { null };  
+    </script> 
+
+	</head>
+
+
+	<body>
+		
+		<div id="mySidenav" class="sidenav">
+		<p class="logo"><span>I</span>-nvy</p>
+        <a href="../dashboard/dashboard.html" class="icon-a"><i class="fa fa-dashboard icons"></i>  Dashboard</a>
+		<a href="../profile/profie.html" class="icon-a"><i class="fa fa-user-circle icons"></i>  Profile</a>
+		<a href="../inventory/inventory.html"class="icon-a"><i class="fa fa-tasks icons"></i>   Inventory</a>
+		<a href="../staff/staff.html"class="icon-a"><i class="fa fa-user-plus icons"></i>   Staff Management</a>
+		<a href="../billing/billing.html"class="icon-a"><i class="fa fa-calendar icons"></i>   Billing Management</a>
+		<!-- <a href="../chart/chart.html"class="icon-a"><i class="fa fa-line-chart icons"></i>   Charts</a> -->
+		<a href="http://127.0.0.1:5501/authentication/login.html"class="icon-a"><i class="fa fa-sign-out icons"></i>   Logout</a>
+	</div>
+	<div id="main">
+
+		<div class="head">
+			<div class="col-div-6">
+	<span style="font-size:30px;cursor:pointer; color: #3b3b44;" class="nav"  >☰  Charts</span>
+	<span style="font-size:30px;cursor:pointer; color: #3b3b44;" class="nav2"  >☰  Charts</span>
+	</div>
+	
+
+
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script>
+
+	  $(".nav").click(function(){
+	    $("#mySidenav").css('width','70px');
+	    $("#main").css('margin-left','70px');
+	    $(".logo").css('visibility', 'hidden');
+	    $(".logo span").css('visibility', 'visible');
+	     $(".logo span").css('margin-left', '-10px');
+	     $(".icon-a").css('visibility', 'hidden');
+	     $(".icons").css('visibility', 'visible');
+	     $(".icons").css('margin-left', '-8px');
+	      $(".nav").css('display','none');
+	      $(".nav2").css('display','block');
+	  });
+
+	$(".nav2").click(function(){
+	    $("#mySidenav").css('width','300px');
+	    $("#main").css('margin-left','300px');
+	    $(".logo").css('visibility', 'visible');
+	     $(".icon-a").css('visibility', 'visible');
+	     $(".icons").css('visibility', 'visible');
+	     $(".nav").css('display','block');
+	      $(".nav2").css('display','none');
+	 });
+
+	</script>
+
+	</body>
+
+
+	</html>

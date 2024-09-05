@@ -1,0 +1,298 @@
+<!Doctype HTML>
+	<html>
+	<head>
+		<title></title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="inventory.css" type="text/css"/>
+		<link rel="stylesheet" href="index.css" type="text/css"/>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500&family=Ubuntu+Mono&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap"
+      rel="stylesheet"
+    />
+
+	<script type = "text/javascript" >  
+		function preventBack() { window.history.forward(); }  
+		setTimeout("preventBack()", 0);  
+		window.onunload = function () { null };  
+	</script> 
+
+		<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+
+		<!-- TODO: Add SDKs for Firebase products that you want to use
+			https://firebase.google.com/docs/web/setup#available-libraries -->
+		<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+
+	</head>
+
+
+	<body>
+		
+		<div id="mySidenav" class="sidenav">
+		<p class="logo"><span>I</span>nvy</p>
+        <a href="../dashboard/dashboard.html" class="icon-a"><i class="fa fa-dashboard icons"></i>  Dashboard</a>
+		<a href="../profile/profie.html" class="icon-a"><i class="fa fa-user-circle icons"></i>  Profile</a>
+		<a href="../inventory/inventory.html"class="icon-a"><i class="fa fa-tasks icons"></i>   Inventory</a>
+		<a href="../staff/staff.html"class="icon-a"><i class="fa fa-user-plus icons"></i>   Staff Management</a>
+		<a href="../billing/billing.html"class="icon-a"><i class="fa fa-calendar icons"></i>   Billing Management</a>
+		<!-- <a href="../chart/chart.html"class="icon-a"><i class="fa fa-line-chart icons"></i>   Charts</a> -->
+		<a href="http://127.0.0.1:5501/authentication/login.html"class="icon-a"><i class="fa fa-sign-out icons"></i>   Logout</a>
+	</div>
+	<div id="main">
+
+		<div class="head">
+
+			<div class="col-div-6">
+	<span style="font-size:30px;cursor:pointer; color: #3b3b44;" class="nav"  >☰  Inventory</span>
+	<span style="font-size:30px;cursor:pointer; color: #3b3b44;" class="nav2"  >☰  Inventory</span>
+	<div id="maincontent">
+    
+    <h1 style="margin-left: 10px;"></h1>
+			<!-- Search Bar -->
+				<div class="box">
+					<input type="text" id="srch" placeholder="Search.." onkeyup="tableSearch()">
+					<script type="text/javascript" src="inventory.js"></script>
+ 					<button type="submit" class="srchbtn"><i class="fa fa-search"></i>
+					</button>
+
+    <button id="button">Insert Data</button>
+</div>
+<div id="overlay"></div>
+<div id="popup">
+    <div class="popupcontrols">
+        <span id="popupclose">&times;</span>
+    </div>
+    <div class="popupcontent">
+    	    <form onsubmit="event.preventDefault(); onFormSubmit();" autocomplete="off">
+                    <div>
+                        <label>Product Name*</label><label class="validation-error hide" id="fullNameValidationError"></label><br>
+                        <input type="text" name="sid" id="sname" required="">
+                    </div>
+                    <div>
+                        <label>Price*</label><br>
+                        <input type="text" name="sname" id="sprice" required="" onkeyup="multiply()">
+                    </div>
+                    <div>
+                        <label>Quantity*</label><br>
+                        <input type="text" name="sname" id="squantity" required="" onkeyup="multiply()">
+                    </div>
+                    <div>
+                        <label>Total amount*</label><br>
+                        <input type="text" name="sname" id="stotal" required="" readonly>
+                    </div>
+                    <div>
+                        <label>Expire date*</label><br>
+                        <input type="date" name="sattnd" id="sattnd" required="">
+                    </div>
+                    <div  class="form-action-buttons"><br>
+                        <input type="submit" value="Submit" id="add">
+				
+                    </div>
+                </form>
+
+
+    </div>
+</div>
+<table class="list" id="ItemList">
+                    <thead>
+                        <tr>
+                            <th style="width: 20%;">Product Name</th>
+                            <th style="width: 10%;">Price</th>
+                            <th style="width: 10%;">Quantity</th>
+                            <th style="width: 20%;">Total amount</th>
+                            <th style="width: 20%;">Expire date</th>
+                            <th style="width: 15%;"><span id="set">&#9881;</span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    </table>
+    <script src="inventory.js"></script>
+	<script src="../firebase.js"></script>
+<script type="text/javascript">
+	// Initialize Variables
+	var closePopup = document.getElementById("popupclose");
+	var overlay = document.getElementById("overlay");
+	var popup = document.getElementById("popup");
+	var button = document.getElementById("button");
+	// Close Popup Event
+	closePopup.onclick = function() {
+	  overlay.style.display = 'none';
+	  popup.style.display = 'none';
+	};
+	// Show Overlay and Popup
+	button.onclick = function() {
+	  overlay.style.display = 'block';
+	  popup.style.display = 'block';
+	}
+</script>
+	</div>
+		
+
+
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script>
+
+	  $(".nav").click(function(){
+	    $("#mySidenav").css('width','70px');
+	    $("#main").css('margin-left','70px');
+	    $(".logo").css('visibility', 'hidden');
+	    $(".logo span").css('visibility', 'visible');
+	     $(".logo span").css('margin-left', '-10px');
+	     $(".icon-a").css('visibility', 'hidden');
+	     $(".icons").css('visibility', 'visible');
+	     $(".icons").css('margin-left', '-8px');
+	      $(".nav").css('display','none');
+	      $(".nav2").css('display','block');
+	  });
+
+	$(".nav2").click(function(){
+	    $("#mySidenav").css('width','300px');
+	    $("#main").css('margin-left','300px');
+	    $(".logo").css('visibility', 'visible');
+	     $(".icon-a").css('visibility', 'visible');
+	     $(".icons").css('visibility', 'visible');
+	     $(".nav").css('display','block');
+	      $(".nav2").css('display','none');
+	 });
+
+	</script>
+	
+
+	<script type="module" >
+		import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-app.js";
+        import { getDatabase } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-database.js";	
+
+		const app = initializeApp(firebaseConfig);
+		const database = getDatabase(app)
+	</script>
+
+	<!----------------------------firestore------------------------------------>
+
+
+<script type="module">
+    // import { initializeApp } from "firebase/app";
+    // import { getFirestore } from "firebase/firestore";
+
+
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.11/firebase-app.js";
+    import { getAuth } from "https://www.gstatic.com/firebasejs/9.6.11/firebase-auth.js";
+    import { getFirestore, doc,addDoc, setDoc,getDoc, getDocs, collection } from "https://www.gstatic.com/firebasejs/9.6.11/firebase-firestore.js";
+
+    var firebaseConfig = {
+    apiKey: "AIzaSyD2Dd_AI2u4TaWbNrgvpwTRxuVLRKfmR5Q",
+    authDomain: "invy-64212.firebaseapp.com",
+    databaseURL: "https://invy-64212-default-rtdb.firebaseio.com",
+    projectId: "invy-64212",
+    storageBucket: "invy-64212.appspot.com",
+    messagingSenderId: "323251925750",
+    appId: "1:323251925750:web:3eb3b245948e58d41372d7"
+    };
+
+     // Initialize Firebase
+    // firebase.initializeApp(firebaseConfig);
+    constapp = initializeApp(firebaseConfig);
+    // const auth = getAuth(app);
+    // const firebase = firebase.initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // const userid = await auth.currentUser;
+    // console.log(userid);
+
+    const GetUpdate = async() => {
+        try {
+            const userid = localStorage.getItem("current-user-id");
+            const documentDocRef = doc(db,"inventory",userid);
+
+            const docSnap = await getDoc(documentDocRef);
+
+            if (docSnap.exists()) {
+            
+            
+            console.log("Document data:", inventoryData);
+
+            
+            document.getElementById("sname").value = inventoryData.firstname;
+            document.getElementById("sprice").value = inventoryData.sprice;
+            document.getElementById("squantity").value = inventoryData.squantity;
+            document.getElementById("stotal").value = inventoryData.stotal;
+            document.getElementById("sattnd").value = inventoryData.sttand;
+            
+
+            console.log("Successfully Updated Form from Database");
+
+            } else {
+            // doc.data() will be undefined in this case
+            console.log("This product is not available");
+            }
+
+        } catch (error) {
+            console.log("Errir getting Product: ",error);
+        }
+    }
+
+    //THIS WILL AUTOMATICALLY GRAB DOCUMENT IF EXISTS
+    GetUpdate();
+
+    
+    
+    const UpdateInventory = async() => { 
+   
+        // console.log
+        try {
+            const productid = localStorage.getItem("current-user-id");
+            const documentDocRef = doc(db,"inventory",userid);
+
+            const docRef = await setDoc(documentDocRef,{
+                productname : document.getElementById("sname").value,
+				productprice : document.getElementById("sprice").value,
+				productquantity: document.getElementById("squantity").value,
+            	producttotalamount: document.getElementById("stotal").value,
+                productexpdate: document.getElementById("asttand").value
+              
+                
+            },{merge: true});
+
+            // const docRef = await addDoc(collection(db,`users/${userid}/inventoryData`),{
+            // const docRef = await addDoc(collection(db,"inventory",userid),{
+            //     productname: document.getElementById("sname").value,
+            //     productprice : document.getElementById("sprice").value,
+            //     productquantity : document.getElementById("squantity").value,
+            //     producttotalamoun : document.getElementById("stotal").value,
+            //      productexpdate: document.getElementById("asttand").value,
+        
+            // },{merge: true});
+            console.log("Document written ", docRef);
+        } catch (error) {
+            console.error("Error adding document: ", error);
+        }
+    }
+
+    window.UpdateInventory = Updateinventory;
+
+
+    // const firebaseConfig = {
+    //     apiKey: 'AIzaSyD2Dd_AI2u4TaWbNrgvpwTRxuVLRKfmR5Q',
+    //     authDomain: 'invy-64212.firebaseapp.com',
+    //     databaseURL: 'https://invy-64212-default-rtdb.firebaseio.com',
+    //     storageBucket: 'invy-64212.appspot.com'
+    //     };
+        
+
+  
+</script>
+	</body>
+
+
+	</html>
+	

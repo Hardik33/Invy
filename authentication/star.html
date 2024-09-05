@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Contact Page</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+    />
+    <link rel="stylesheet" type="text/html" href="css/intro.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="icon" href="./images/cart.png">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500&family=Ubuntu+Mono&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="contactus.css" />
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type = "text/javascript" >  
+      function preventBack() { window.history.forward(); }  
+      setTimeout("preventBack()", 0);  
+      window.onunload = function () { null };  
+    </script> 
+  </head>
+  
+  
+  <body>
+    <div class="section">
+      <div class="logo" style="float: left; width: 50%">
+        <img src="./images/invy.png" alt="" />
+      </div>
+      <div class="nav-links" id="navlinks" style="float: right; width: 50%">
+        <ul>
+          <li><a href="index.html">HOME</a></li>
+          <li><a href="about.html">ABOUT</a></li>
+          <li><a href="login.html">LOGIN</a></li>
+          <!-- <li><a href="http://localhost/contact/contactus.php">CONTACT</a></li> -->
+          <li><a href="contact.html">CONTACT</a></li>
+        </ul>
+      </div>
+
+      <div class="text_box">
+        <h1>Contact Us</h1>
+      </div>
+
+      <section class="contact-col">
+        <br />
+        <br /><br />
+        <center>
+          <form id="contact-form" onsubmit="sendEmail(); reset(); return false">
+            <input
+              type="text"
+              id="name"
+              placeholder="Enter Your Name"
+              required
+            />
+            <input
+              type="email"
+              id="email"
+              placeholder="Enter E-mail Address"
+              required
+            />
+            <input
+              type="text"
+              id="subject"
+              placeholder="Enter Your Subject"
+              required
+            />
+            <textarea
+              rows="8"
+              id="message"
+              placeholder="Message"
+              required
+            ></textarea
+            ><br />
+            <center>
+              <button type="submit" class="hero-btn">Send Message</button>
+            </center>
+          </form>
+        </center>
+      </section>
+    </div>
+
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+  <script>
+    function sendEmail(){
+          Email.send({
+          Host : "sandbox.smtp.mailtrap.io",
+          Username : "4b630c4d335521",
+          Password : "15590a216694ef",
+          // SecureToken : "b0486583-772d-48f9-9a8f-9c375758f44f",
+          To : 'hardikjagtap05@gmail.com',
+          From : document.getElementById("email").value,
+          Subject : "This is the subject",
+          Body : "Name: " + document.getElementById("name").value
+              + "<br> Email: " + document.getElementById("email").value
+              + "<br> Subject: " + document.getElementById("subject").value
+              + "<br> message: " + document.getElementById("message").value
+      }).then(
+      message => alert("Your message sent successfully")
+      );
+  }
+  </script>
+
+   
+  </body>
+</html>

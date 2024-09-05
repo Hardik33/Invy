@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Login Page</title>
+         <!-- Cool Google Fonts -->
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Bowlby+One+SC&display=swap" rel="stylesheet">
+        <link rel="icon" href="./images/cart.png">
+        <!-- Our stylesheet -->
+        <link rel="stylesheet" type="text/css" href="login.css">
+        
+        <script
+          src="https://kit.fontawesome.com/411a1e6d91.js"
+          crossorigin="anonymous"
+        ></script>
+        
+        <script type = "text/javascript" >  
+          function preventBack() { window.history.forward(); }  
+          setTimeout("preventBack()", 0);  
+          window.onunload = function () { null };  
+        </script> 
+
+    </head>
+    <body>
+
+        <div class="section">
+            <div class="logo" style="float: left; width: 50%">
+                <img src="./images/invy.png" alt="">
+            </div>
+                <div class="nav-links" id="navlinks" style="float: right; width: 50%">  <!--Navigation bar-->
+                    <ul>
+                        <li><a href="index.html">HOME</a></li>
+                        <li><a href="about.html">ABOUT</a></li>
+                        <li><a href="login.html">LOGIN</a></li>
+                        <!-- <li><a href="http://localhost/contact/contactus.php">CONTACT</a></li> -->
+                        <li><a href="contact.html">CONTACT</a></li>
+                    </ul>
+                </div>
+            
+                
+        </div>
+
+
+        <div id="content_container">
+            <div id="form_container">
+                <div id="form_header_container">
+                    <h2 id="form_header">LOG IN</h2>
+                </div>
+
+                <div id="form_content_container">
+                    <div id="form_content_inner_container">
+                        <input type="email" id="email" placeholder="&#xf0e0; &nbsp; Email" style="font-family:Arial, FontAwesome">
+                        <input type="password" id="password" placeholder="&#xf023; &nbsp; Password" style="font-family:Arial, FontAwesome">
+                        <i class="far fa-eye" id="togglePassword1" onclick="show1()"></i>
+
+                        <div id="button_container">
+                            <!-- c v  -->
+                            <button onclick="login()"></a>LOG IN</button>
+                        </div>
+                        <div class="forgot" id="forgotpass">
+                            <center><p><a href="#" onclick="forgotPass()">Forgot password?</a></center></p>
+                          </div>
+                          
+
+                        <div class="or">
+                            <p>OR</p>
+                        </div>
+
+                         <div class="icon" id="google">
+                            <a>
+                              <img
+                                src="./images/signin.png"
+                                alt=""
+                                height="70px"
+                                width="auto"
+                              />
+                            </a>
+                            
+                            <div class="line">
+                                <div class="draw-hr"><hr></div>
+                                <div class="draw-hr1"><hr></div>
+                            </div>
+                          
+                          </div>
+                          <div class="create">
+                            <center><p><a href="./signup.html">Create an account</a></center></p>
+                          </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script>
+          function show1() {
+            var password = document.getElementById("password");
+            var icon = document.querySelector(".fas");
+
+            // ========== Checking type of password ===========
+            if (password.type === "password") {
+            password.type = "text";
+            } else {
+            password.type = "password";
+            }
+  }
+    </script>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+         https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-app.js";
+        import { getAuth ,GoogleAuthProvider ,signInWithPopup  ,createUserWithEmailAndPassword ,sendPasswordResetEmail} from "https://www.gstatic.com/firebasejs/9.6.8/firebase-auth.js";
+        import { getDatabase } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-database.js";
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const database = getDatabase(app);
+        const provider = new GoogleAuthProvider(app);
+
+        google.addEventListener('click',(e) => {
+  //         signInWithRedirect(auth, provider);
+
+  //         getRedirectResult(auth)
+  //         .then((result) => {
+  //           // This gives you a Google Access Token. You can use it to access Google APIs.
+  //           const credential = GoogleAuthProvider.credentialFromResult(result);
+  //           const token = credential.accessToken;
+
+  //           // The signed-in user info.
+  //           const user = result.user;
+  //         }).catch((error) => {
+  //           // Handle Errors here.
+  //           const errorCode = error.code;
+  //           const errorMessage = error.message;
+  //           // The email of the user's account used.
+  //           const email = error.email;
+  //           // The AuthCredential type that was used.
+  //           const credential = GoogleAuthProvider.credentialFromError(error);
+  //           // ...
+  // });
+
+                signInWithPopup(auth, provider)
+                .then(async(result) => {
+                  // This gives you a Google Access Token. You can use it to access the Google API.
+                  const credential = GoogleAuthProvider.credentialFromResult(result);
+                  const token = credential.accessToken;
+                  const userid = await auth.currentUser.uid;
+                  const email = await auth.currentUser.email;
+                  localStorage.setItem('current-user-id',userid);
+                  localStorage.setItem('current-user-email',email)
+                  console.log(userid);
+                  // The signed-in user info.
+                  const user = result.user;
+
+                  alert(user.displayName)
+                  location.replace("welcome.html")
+                  // ...
+                }).catch((error) => {
+                  // Handle Errors here.
+                  const errorCode = error.code;
+                  const errorMessage = error.message;
+                  // The email of the user's account used.
+                  const email = error.email;
+                  // The AuthCredential type that was used.
+                  const credential = GoogleAuthProvider.credentialFromError(error);
+                  alert('Enter with email id and password');
+                  // ...
+                });
+        });
+
+        google.addEventListener('click',(e) => {
+        sendPasswordResetEmail(auth, email)
+          .then(() => {
+            // Password reset email sent!
+            // ..
+          })
+          .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            // ..
+          });
+        });
+
+    </script>
+
+    <!-- Our script must be loaded after firebase references -->
+    <script src="login.js"></script>
+
+</html>
